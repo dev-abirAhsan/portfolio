@@ -1,0 +1,195 @@
+CURRICULUM VITAE
+OF
+Md. Abir Ahsan
+Career Objective
+As a Software Engineer with over four years of experience, my career objective is to advance
+my skills and knowledge in the field while taking on more challenging roles that allow me to
+make a significant impact on the development of softwares and web applications. I am
+looking for an opportunity to work in a dynamic and innovative environment that
+encourages creativity and provides opportunities for growth and professional development. I
+am seeking a position that offers competitive compensation and benefits, as well as a
+supportive work culture that values collaboration and teamwork. My ultimate goal is to
+become an integral member of a team of talented developers, contributing my expertise to
+build exceptional software solutions and keep improving.
+Experience Summary
+Senior Officer (Software Development) Full Stack Web Developer
+( IT Development Division ) (On-site)
+May 2023 - Present May 2021 - May 2023
+Dutch Bangla Bank PLC. Preneur Lab Limited
+Web Developer Trainee/ Front End Web Developer Trainee/ Back End
+(Remote) (Remote)
+March 2021 - May 2021 September 2020 - February 2021
+Under Under
+Ishtiaque Ali Jim Wadud Rahman
+Software Engineer , Strativ Software Engineer, Portonics Limited
+Hands-on experience on Hands-on experience on
+Converting Figma to responsive webpage (HTML,CSS,JS) PHP / Laravel
+Professional Experience wise Skills
+1) Software Engineer | Dutch-Bangla Bank PLC. | NexusPay App
+Development
+Full-Stack Feature Development: Engineered secure banking services and user
+interfaces using React for frontend delivery and Java Spring Boot for robust
+backend logic.
+Payment Gateway Engineering: Developed and optimized the DBBL Gateway to
+support high-concurrency multi-host transactions, ensuring data integrity and
+system reliability.
+System Integration & API Design: Built and maintained complex REST/SOAP
+Web Services and integrated third-party APIs to expand the NexusPay
+ecosystem.
+Database Performance: Authored and optimized complex PL/SQL scripts and
+stored procedures to handle large-scale financial data and transaction logging.
+Deployment & CI/CD: Managed application deployment cycles, ensuring
+smooth transitions from staging to production environments.
+FinTech R&D: Conducted deep-dive market analysis of global FinTech trends to
+drive feature innovation and improve the app’s competitive positioning in the
+local market.
+2) Full Stack Web Developer | Preneur Lab LTD
+Enterprise Chatbot & Automation Systems
+-> Telecom Solutions (Robi, Airtel, Banglalink, LICT): Developed and maintained
+high-traffic omnichannel chatbot ecosystems across Messenger, WhatsApp,
+Instagram, Web, and Email.
+-> AI Integration: Engineered custom chatbot solutions leveraging the ChatGPT
+API and NLP to automate customer service workflows and office management
+(Ofc.ai).
+E-Commerce & Digital Transformation
+-> Frequency Telecom (UK): Built and managed a global e-commerce platform,
+leading the complex integration between WooCommerce and Oracle NetSuite
+ERP for synchronized inventory and financial reporting.
+-> GreenAcres Group & Eternal Gardens (UK): Developed and maintained web
+platforms for leading UK service providers, focusing on high-performance UI and
+sensitive user experience (UX) design.
+-> BRAC EPL: Spearheaded the website revamp for a leading stock brokerage,
+ensuring a modern, secure, and responsive interface.
+High-Impact Campaigns & EdTech
+-> Toffee World Cup ’22 (AR Integration): Developed innovative Augmented
+Reality (AR) poster commercials and the "Flagwar" interactive game for the
+Toffee app, reaching millions of users during the FIFA World Cup.
+-> EdTech Platforms (YouthEd & YO Mentorship): Architected online education
+and mentorship portals for Youth Hub Bangladesh and Youth Opportunities,
+focusing on scalable user management and content delivery.
+-> Interactive Web Apps: Developed real-time engagement platforms including
+Khelowar.com (live games/quizzes) and the World Cup Predictor microsite.
+Educational Background
+Qualification Institution Result Year of Passing
+B. Sc. United CGPA 3.56 scale 2021
+Engineering International of 4.00
+(CSE) University
+H.S.C. New Govt. Degree GPA 5.00 2016
+College, Rajshahi
+S.S.C. Rajshahi Collegiate School GPA 5.00 2014
+Technical skill overview:
+Core Stack & Frameworks
+Frontend: React (Hooks, Context API, State Management), Vue.js, JavaScript (ES6+), HTML5
+(Semantic & SEO-focused), CSS3 (Tailwind, Bootstrap, Materialize), AR.js.
+Backend: Java Spring Boot, .NET (C# / Core), PHP (Laravel, OOP), Python (Django, Flask),
+Node.js.
+Web Architecture: RESTful & SOAP APIs, Restlets, Oracle Netsuite, WordPress &
+WooCommerce.
+Software Engineering & DevOps
+Deployment & CI/CD: Automated Pipelines, Docker, CI/CD Principles, GitHub Actions, cPanel,
+Filezilla.
+Methodologies: Agile/Kanban, SOLID Principles, Test-Driven Development (TDD), Clean Code.
+Optimization: Web Performance (Lazy Loading, Code Splitting), SEO Best Practices, Bundle
+Optimization.
+Data & Infrastructure
+Databases: PostgreSQL, MySQL, PL/SQL, MongoDB, MariaDB, SQLite.
+Tools & Platforms: Jira, Asana, Git (GitHub), Oracle Weblogic, Toad for Oracle,
+ChatGPT/Gemini/Claud/Google Antigravity (Prompt Engineering).
+Operating Systems: Windows, Linux-based OS (Ubuntu).
+Machine Learning & Research
+Libraries: NumPy, Pandas, Scikit-learn, TensorFlow, Matplotlib.
+Simulation & Robotics: Gym, Gazebo, ROS, OpenAI tools.
+Development Environment & Utilities
+Languages: C#, Java, Python, C/C++, PHP.
+IDEs: VS Code, PyCharm, Eclipse, CodeBlocks, PhpStorm, Google Colaboratory.
+Other: LaTeX, Logisim, Proteus, MS Office, Canva (Basic Graphics & Video).
+Academic Projects
+∙
+Database and Management System: Tune In
+This is a website project which provides a platform to buy ,sell and rent musical
+instruments.
+∙
+System Analysis and Design: Balloons and Ribbons
+This is an online event and vendor management system.
+∙
+Computer Network: IOT Weather Reporting System
+This project uses temperature, humidity to monitor weather and provide live reporting
+of the weather statistics. The system constantly monitors temperature using
+temperature sensor, humidity using humidity sensor. The system constantly transmits
+this data to the microcontroller, which now processes this data and keeps on
+transmitting it to the online web server over a wifi connection.
+∙
+Digital Logic Design: Line Follower Robot
+This robot is an automated guided vehicle, which follows a visual line embedded on the
+floor or ceiling. Usually, the visual line is the path in which the line follower robot goes
+and it will be a black line on a white surface but the other way.
+∙
+Electronics: Smart Stick For The Blind People
+This is a hardware project. I used an Arduino in it. If there is any obstacle in front of the
+stick then it will notify the person by a buzzer. And if the blind person is lost then he or
+she can press a button of the stick and the location of him will go to the person via sms
+who takes care of him. For that, I used a Mobile sim card and GPS integrated with the
+Arduino
+Paper
+A Review on Moving Target Defenses and Cyber Deception Technology with
+Software Defined Network in Cloud Computing
+Capstone (Final Year Design Project):
+Using Reinforcement learning to train a line follower robot.
+Achievements
+∙
+Inter School Science Fair 2013 : 2nd Place
+Project Name: Smart Water Supply
+∙
+Mega Hunt 2019 : 2nd Place, Recitation
+UIU Cultural Club
+∙
+General Scholarship JSC 2012, Rajshahi Board
+∙
+UIU Competitive Programming / member, CP batch 7
+Additional Activities
+∙
+Vocalist at Band Zero Friction.
+∙
+Vocalist and Lyricist at Band Feral Throne.
+∙
+Guitarist at Band Trio.
+∙
+Competitive Gamer at CS:GO , Valorant.
+∙
+Former Associate Organizational Secretary , UIU Cultural Club.
+∙
+Former Head of Music , UIU Cultural Club.
+∙
+Former General Secretary , UIU Communication Society.
+∙
+Former Debater , RCS Debating Club.
+Personal Details
+Father Name : Md. Hasib Ahsan Gender : Male
+Mother Name : Anjuman Ahsan Blood Group : B Positive
+Date of Birth : 11/09/1999 Religion : Islam
+NID number: 6004986120 Nationality : Bangladeshi
+Marital status : Unmarried
+Contact Information
+Address : 823/2, Moddho Monipur, Mirpur-2, Dhaka, Bangladesh .
+E-mail : mail.abirahsan@gmail.com
+E-mail (2) : abirahsan619@gmail.com
+Mobile : +8801797736343
+Mobile (2): +8801521480988
+LinkedIn: https://www.linkedin.com/in/abirahsan/
+Portfolio Site: https://github.com/abirahsan007
+Declaration
+I hereby declare that the details above are correct and true to the best of my knowledge.
+Signature:
+References
+MD. ABUL KASHEM, Ph.D
+Vice Chancellor
+United International University
+E-mail: kashem@uiu.ac.bd
+Arif Nezami
+Chief Executive Officer
+Preneur Lab Limited
+Email: arifnezami@gmail.com
+Dr. Swakkhar Shatabda
+Professor & Director - IQAC
+United International University
+E-mail: swakkhar@cse.uiu.ac.bd

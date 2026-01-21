@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Md. Abir Ahsan — Software Engineer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        background: '#F5F5F5',
+                        surface: '#FFFFFF',
+                        primary: '#111111',
+                        secondary: '#555555',
+                        accent: '#EB3A14',
+                        line: '#E0E0E0'
+                    },
+                    letterSpacing: {
+                        tighter: '-0.04em',
+                        tight: '-0.02em',
+                    },
+                    transitionTimingFunction: {
+                        'spring': 'cubic-bezier(0.25, 0.8, 0.25, 1)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base & Reset */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            color: #111111;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background-color: #EB3A14;
+            color: white;
+        }
+
+        /* Custom Cursor */
+        @media (pointer: fine) {
+            body {
+                cursor: none;
+            }
+
+            .cursor-dot,
+            .cursor-circle {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 9999;
+                mix-blend-mode: exclusion;
+            }
+
+            .cursor-dot {
+                width: 6px;
+                height: 6px;
+                background: white;
+                border-radius: 50%;
+            }
+
+            .cursor-circle {
+                width: 32px;
+                height: 32px;
+                border: 1px solid white;
+                border-radius: 50%;
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+            }
+
+            body:hover .cursor-circle {
+                opacity: 1;
+            }
+
+            .hover-active .cursor-circle {
+                width: 64px;
+                height: 64px;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-color: transparent;
+            }
+        }
+
+        @media (pointer: coarse) {
+
+            .cursor-dot,
+            .cursor-circle {
+                display: none !important;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+
+        /* Typography & Utils */
+        .text-balance {
+            text-wrap: balance;
+        }
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: #111111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #F5F5F5;
+        }
+
+        .magnetic-btn {
+            display: inline-block;
+            will-change: transform;
+        }
+
+        /* Reveal Animations */
+        .hero-char {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(20px);
+            will-change: transform, opacity, filter;
+        }
+
+        /* Wispr-style Glow */
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(235, 58, 20, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0;
+            /* Animated in */
+        }
+
+        /* Marquee */
+        .marquee-track {
+            display: flex;
+            white-space: nowrap;
+            width: max-content;
+            will-change: transform;
+            animation: marquee 40s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Project Cards */
+        .project-card .project-img {
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.5s;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.03);
+        }
+
+        /* Mobile Fixes */
+        .mobile-stack {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-stack {
+                flex-direction: row;
+            }
+        }
+
+        /* Tech Grid Animation */
+        .tech-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image:
+                linear-gradient(rgba(17, 17, 17, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(17, 17, 17, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg) translateY(0);
+            animation: grid-move 20s linear infinite;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        @keyframes grid-move {
+            0% {
+                transform: perspective(500px) rotateX(60deg) translateY(0);
+            }
+
+            100% {
+                transform: perspective(500px) rotateX(60deg) translateY(50px);
+            }
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden w-full">
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="flex flex-col items-center gap-4">
+            <div class="font-mono text-6xl md:text-8xl font-bold tracking-tighter" id="loader-text">0%</div>
+            <div class="w-32 h-[1px] bg-gray-800 relative overflow-hidden">
+                <div class="absolute inset-0 bg-accent w-0" id="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 left-0 w-full px-4 md:px-6 py-5 flex justify-between items-center z-50 mix-blend-difference text-white pointer-events-none">
+        <a href="#"
+            class="font-mono text-sm font-semibold uppercase tracking-widest hover:text-accent transition-colors pointer-events-auto">
+            Abir Ahsan
+        </a>
+        <div class="flex items-center gap-4 md:gap-10 pointer-events-auto">
+            <div
+                class="hidden md:flex gap-8 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/10">
+                <a href="#work"
+                    class="font-mono text-xs uppercase tracking-widest hover:text-accent transition-colors">Projects</a>
+                <a href="#about"
+                    class="font-mono text-xs uppercase tracking-widest hover:text-accent transition-colors">About</a>
+            </div>
+            <a href="#contact"
+                class="bg-white text-black px-5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-colors duration-200 magnetic-btn shadow-lg">
+                Contact
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Wispr Style) -->
+    <section
+        class="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-6 pt-20 md:pt-0 overflow-hidden">
+        <!-- Canvas Background -->
+        <div class="tech-grid"></div>
+        <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full opacity-60 pointer-events-none"></canvas>
+
+        <!-- Wispr Glow Blob -->
+        <div class="hero-glow animate-pulse-slow"></div>
+
+        <div class="max-w-[1800px] mx-auto w-full z-10 relative flex flex-col items-center text-center">
+
+            <!-- Floating Status Badge -->
+            <div
+                class="mb-8 md:mb-12 flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/40 backdrop-blur-md border border-white/20 shadow-sm opacity-0 hero-fade-in">
+                <div class="flex gap-1 h-3 items-center">
+                    <span class="w-1 h-full bg-accent rounded-full animate-[pulse_1s_ease-in-out_infinite]"></span>
+                    <span class="w-1 h-2/3 bg-accent rounded-full animate-[pulse_1.2s_ease-in-out_infinite]"></span>
+                    <span class="w-1 h-full bg-accent rounded-full animate-[pulse_0.8s_ease-in-out_infinite]"></span>
+                </div>
+                <span class="font-mono text-[10px] md:text-xs uppercase tracking-widest text-primary font-medium">
+                    Available for Opportunities
+                </span>
+            </div>
+
+            <!-- Main Title with Image and Split Reveal -->
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 mb-8 md:mb-12">
+                <div class="opacity-0 hero-fade-in">
+                    <img src="assets/img/profile_pic.jpg" alt="Md. Abir Ahsan"
+                        class="w-32 h-32 md:w-60 md:h-60 rounded-full object-cover border-4 border-black shadow-2xl transition-all duration-500">
+                </div>
+                <!-- Name Title -->
+                <h1
+                    class="text-[6vw] md:text-[4vw] leading-tight font-semibold tracking-tighter text-primary uppercase mix-blend-darken flex flex-row gap-3 md:gap-4 items-center justify-center md:justify-start">
+                    <div class="overflow-hidden"><span class="hero-char">Md. Abir</span></div>
+                    <div class="overflow-hidden"><span class="hero-char">Ahsan</span></div>
+                </h1>
+            </div>
+
+            <!-- Subtitle -->
+            <div class="max-w-xl mx-auto opacity-0 hero-fade-in">
+                <p class="font-sans text-base md:text-xl text-secondary leading-relaxed text-balance">
+                    Software Engineer with 4+years of experience. Building robust
+                    solutions with <span class="text-primary font-medium">React</span>,
+                    <span class="text-primary font-medium">Java Spring Boot</span>,
+                    and <span class="text-primary font-medium">System
+                        Integration</span>.
+                </p>
+            </div>
+            <!-- CTA Buttons -->
+            <div class="mt-10 md:mt-14 flex gap-4 opacity-0 hero-fade-in">
+                <button
+                    class="px-8 py-3 bg-primary text-white rounded-full font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent transition-colors duration-300 magnetic-btn"
+                    onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'})">
+                    View Projects
+                </button>
+                <a href="https://github.com/dev-abirAhsan" target="_blank"
+                    class="px-4 py-3 border border-black/10 bg-white rounded-full hover:bg-accent hover:text-white transition-colors duration-200 magnetic-btn">
+                    <i data-lucide="github" class="w-5 h-5 stroke-[1.5]"></i>
+                </a>
+                <a href="assets/doc/Abir Ahsan_CV_webDev.pdf" target="_blank"
+                    class="px-8 py-3 bg-white text-primary border border-black/10 rounded-full font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-colors duration-300 magnetic-btn">
+                    Resume
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 hero-fade-in animate-bounce">
+            <i data-lucide="arrow-down" class="w-5 h-5 text-secondary/50"></i>
+        </div>
+    </section>
+    <!-- Marquee Skills -->
+    <div class="py-6 md:py-8 bg-primary text-white overflow-hidden border-y border-white/10 select-none">
+        <div class="marquee-track font-mono text-xs md:text-sm uppercase tracking-[0.3em]">
+            <span class="mx-4 md:mx-8">React</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">Java Spring Boot</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">Python</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">PHP / Laravel</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">PostgreSQL</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">Docker</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">AWS</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">System Integration</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">Git</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">PL/SQL</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">Vue.js</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">NLP</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">NODE.JS</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">Tailwind CSS</span><span class="text-accent">•</span>
+            <span class="mx-4 md:mx-8">MongoDB</span><span class="text-accent">•</span>
+        </div>
+    </div>
+    <!-- Selected Work -->
+    <section id="work" class="px-4 md:px-6 py-20 md:py-32 max-w-[1800px] mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 border-b border-black/10 pb-6">
+            <h2 class="text-4xl md:text-7xl font-semibold tracking-tighter uppercase">Selected Projects</h2>
+            <span class="font-mono text-xs md:text-sm text-secondary mt-2 md:mt-0"></span>
+        </div>
+
+        <div class="space-y-20 md:space-y-32">
+            <!-- Project 1 -->
+            <div class="group project-card grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div
+                    class="lg:col-span-7 overflow-hidden rounded-sm bg-gray-200 aspect-[4/5] md:aspect-[4/5] relative cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-black/10 z-10 group-hover:bg-transparent transition-colors duration-300">
+                    </div>
+                    <img src="assets/img/nexus_pay_v3.png" alt="NexusPay App"
+                        class="project-img w-full h-full object-cover grayscale group-hover:grayscale-0">
+                </div>
+                <div class="lg:col-span-5 flex flex-col gap-4 md:gap-6">
+                    <div
+                        class="flex items-center gap-3 font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent">
+                        <i data-lucide="smartphone" class="w-3 h-3 md:w-4 md:h-4"></i>
+                        <span>Fintech App</span>
+                    </div>
+                    <h3 class="text-3xl md:text-5xl font-semibold tracking-tighter">NexusPay App</h3>
+                    <div class="space-y-4 text-secondary text-base md:text-lg leading-relaxed">
+                        <p>
+                            Engineered secure banking services and user interfaces using React and Java Spring Boot.
+                            Optimized the DBBL Gateway to support high-concurrency multi-host transactions ensuring
+                            system reliability.
+                        </p>
+                        <ul
+                            class="list-disc pl-4 space-y-2 text-sm md:text-base selection:bg-accent selection:text-white">
+                            <li>Built and maintained complex REST/SOAP Web Services and integrated third-party APIs.
+                            </li>
+                            <li>Authored and optimized complex PL/SQL scripts for large-scale financial data handling.
+                            </li>
+                            <li>Managed CI/CD deployment cycles for seamless staging-to-production transitions.</li>
+                        </ul>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">React</span>
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">Java
+                            Spring Boot</span>
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">PL/SQL</span>
+                    </div>
+                    <div class="flex items-center gap-6 mt-2 md:mt-4">
+                        <a href="#"
+                            class="inline-flex items-center gap-2 text-xs md:text-sm font-semibold uppercase tracking-widest hover:text-accent transition-colors magnetic-btn group/link">
+                            View Details <i data-lucide="arrow-up-right"
+                                class="w-4 h-4 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="group project-card grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-5 flex flex-col gap-4 md:gap-6 order-2 lg:order-1">
+                    <div
+                        class="flex items-center gap-3 font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent">
+                        <i data-lucide="globe" class="w-3 h-3 md:w-4 md:h-4"></i>
+                        <span>E-Commerce Platform</span>
+                    </div>
+                    <h3 class="text-3xl md:text-5xl font-semibold tracking-tighter">Frequency Telecom</h3>
+                    <p class="text-secondary text-base md:text-lg leading-relaxed">
+                        Global e-commerce platform with complex integration between WooCommerce and Oracle NetSuite ERP
+                        for synchronized inventory and financial reporting.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">WooCommerce</span>
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">Oracle
+                            NetSuite</span>
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">ERP
+                            Integration</span>
+                    </div>
+                    <div class="flex items-center gap-6 mt-2 md:mt-4"><a href="#"
+                            class="inline-flex items-center gap-2 text-xs md:text-sm font-semibold uppercase tracking-widest hover:text-accent transition-colors magnetic-btn group/link">View
+                            Project <i data-lucide="arrow-up-right"
+                                class="w-4 h-4 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"></i></a>
+                    </div>
+                </div>
+                <div
+                    class="lg:col-span-7 overflow-hidden rounded-sm bg-gray-200 aspect-[4/3] md:aspect-[16/10] relative cursor-pointer order-1 lg:order-2">
+                    <div
+                        class="absolute inset-0 bg-black/10 z-10 group-hover:bg-transparent transition-colors duration-300">
+                    </div>
+                    <img src="assets/img/frequency_telecom.png" alt="Frequency Telecom"
+                        class="project-img w-full h-full object-cover grayscale group-hover:grayscale-0">
+                </div>
+            </div>
+            <!-- Project 3 -->
+            <div class="group project-card grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div
+                    class="lg:col-span-7 overflow-hidden rounded-sm bg-gray-200 aspect-[4/3] md:aspect-[16/10] relative cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-black/10 z-10 group-hover:bg-transparent transition-colors duration-300">
+                    </div>
+                    <img src="assets/img/chatbot.png" alt="Enterprise Chatbot"
+                        class="project-img w-full h-full object-cover grayscale group-hover:grayscale-0">
+                </div>
+                <div class="lg:col-span-5 flex flex-col gap-4 md:gap-6">
+                    <div
+                        class="flex items-center gap-3 font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent">
+                        <i data-lucide="bot" class="w-3 h-3 md:w-4 md:h-4"></i>
+                        <span>AI & NLP</span>
+                    </div>
+                    <h3 class="text-3xl md:text-5xl font-semibold tracking-tighter">Enterprise Chatbots</h3>
+                    <p class="text-secondary text-base md:text-lg leading-relaxed">
+                        High-traffic omnichannel chatbot ecosystems for telecom giants (Robi, Airtel, Banglalink).
+                        Engineered custom solutions leveraging ChatGPT API and NLP.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">Python</span>
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">NLP</span>
+                        <span
+                            class="px-2 py-1 md:px-3 md:py-1 border border-black/10 rounded-full text-[10px] md:text-xs font-mono uppercase text-secondary bg-white">OpenAI
+                            API</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Timeline Section -->
+    <section id="about" class="bg-[#050505] text-gray-300 py-20 md:py-32 px-4 md:px-6 relative overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:3rem_3rem] md:bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none opacity-20">
+        </div>
+        <div class="max-w-[1200px] mx-auto relative z-10">
+            <div class="text-center mb-12 md:mb-20">
+                <h2 class="text-4xl md:text-7xl font-semibold tracking-tighter text-white mb-6 uppercase">Career
+                    Timeline</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto font-light text-base md:text-lg leading-relaxed">
+                    Passionate software developer with a strong foundation in full-stack and backend development.
+                    Experienced in web technologies, AI Systems, and NLP.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
+                <!-- Education Column -->
+                <div class="space-y-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="graduation-cap" class="w-5 h-5 text-accent"></i>
+                        <h3 class="text-2xl md:text-3xl font-semibold tracking-tight text-white">Education</h3>
+                    </div>
+                    <div class="space-y-6 border-l-2 border-white/10 pl-6">
+                        <div class="relative group">
+                            <div
+                                class="absolute -left-[1.6rem] top-2 w-3 h-3 bg-accent rounded-full border-2 border-[#050505]">
+                            </div>
+                            <div
+                                class="bg-white/5 backdrop-blur-sm p-5 rounded-lg border border-white/10 hover:border-accent/50 transition-colors">
+                                <p class="font-semibold text-white text-lg">B. Sc. in Computer Science & Engineering</p>
+                                <p class="text-sm text-gray-400 mt-1">United International University • 2021</p>
+                                <p class="text-sm text-gray-400 mt-2">CGPA: <span class="text-accent font-semibold">3.56
+                                        out of 4.00</span></p>
+                            </div>
+                        </div>
+                        <div class="relative group">
+                            <div
+                                class="absolute -left-[1.6rem] top-2 w-3 h-3 bg-white/20 rounded-full border-2 border-[#050505] group-hover:bg-accent transition-colors">
+                            </div>
+                            <div
+                                class="bg-white/5 backdrop-blur-sm p-5 rounded-lg border border-white/10 hover:border-accent/50 transition-colors">
+                                <p class="font-semibold text-white text-lg">Higher Secondary Certificate (HSC)</p>
+                                <p class="text-sm text-gray-400 mt-1">New Govt. Degree College, Rajshahi • 2016</p>
+                                <p class="text-sm text-gray-400 mt-2">GPA: <span class="text-accent font-semibold">5.00
+                                        out of 5.00</span></p>
+                            </div>
+                        </div>
+                        <div class="relative group">
+                            <div
+                                class="absolute -left-[1.6rem] top-2 w-3 h-3 bg-white/20 rounded-full border-2 border-[#050505] group-hover:bg-accent transition-colors">
+                            </div>
+                            <div
+                                class="bg-white/5 backdrop-blur-sm p-5 rounded-lg border border-white/10 hover:border-accent/50 transition-colors">
+                                <p class="font-semibold text-white text-lg">Secondary School Certificate (SSC)</p>
+                                <p class="text-sm text-gray-400 mt-1">Rajshahi Collegiate School • 2014</p>
+                                <p class="text-sm text-gray-400 mt-2">GPA: <span class="text-accent font-semibold">5.00
+                                        out of 5.00</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Column -->
+                <div class="space-y-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="briefcase" class="w-5 h-5 text-accent"></i>
+                        <h3 class="text-2xl md:text-3xl font-semibold tracking-tight text-white">Experience</h3>
+                    </div>
+                    <div class="space-y-6 border-l-2 border-white/10 pl-6">
+                        <div class="relative group">
+                            <div
+                                class="absolute -left-[1.6rem] top-2 w-3 h-3 bg-accent rounded-full border-2 border-[#050505]">
+                            </div>
+                            <div
+                                class="bg-white/5 backdrop-blur-sm p-5 rounded-lg border border-white/10 hover:border-accent/50 transition-colors">
+                                <h4 class="text-xl font-semibold text-white">Senior Officer (Software Development)</h4>
+                                <p class="text-sm text-gray-400 mt-1">Dutch Bangla Bank PLC</p>
+                                <p class="font-mono text-xs text-accent mt-2 uppercase tracking-wider">May 2023 —
+                                    Present</p>
+                                <ul class="space-y-2 mt-4 text-gray-400 list-disc pl-4 text-sm marker:text-accent/50">
+                                    <li>Feature engineering for NexusPay App using React & Spring Boot.</li>
+                                    <li>Optimized Gateway for high-concurrency transactions.</li>
+                                    <li>Integrated 3rd party APIs and maintained REST/SOAP services.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="relative group">
+                            <div
+                                class="absolute -left-[1.6rem] top-2 w-3 h-3 bg-white/20 rounded-full border-2 border-[#050505] group-hover:bg-accent transition-colors">
+                            </div>
+                            <div
+                                class="bg-white/5 backdrop-blur-sm p-5 rounded-lg border border-white/10 hover:border-accent/50 transition-colors">
+                                <h4 class="text-xl font-semibold text-white">Full
+                                    Stack Web Developer</h4>
+                                <p class="text-sm text-gray-400 mt-1">Preneur Lab
+                                    Limited</p>
+                                <p class="font-mono text-xs text-accent mt-2 uppercase tracking-wider">
+                                    May 2021 — May 2023</p>
+                                <ul class="space-y-2 mt-4 text-gray-400 list-disc pl-4 text-sm marker:text-accent/50">
+                                    <li>Developed chatbot ecosystems for Robi,
+                                        Airtel,
+                                        Banglalink.</li>
+                                    <li>Built global e-commerce platform for
+                                        Frequency Telecom (UK).</li>
+                                    <li>Created AR campaigns for Toffee World Cup
+                                        2022.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="px-4 md:px-6 py-20 md:py-40 bg-[#F5F5F5] border-t border-black/5">
+        <div class="max-w-[1200px] mx-auto text-center">
+            <p class="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-accent mb-6">
+                Status: Available
+            </p>
+            <h2
+                class="text-5xl md:text-9xl font-semibold tracking-tighter uppercase mb-10 md:mb-12 leading-none text-primary">
+                Let's Work<br>Together
+            </h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-12">
+                <a href="mailto:mail.abirahsan@gmail.com"
+                    class="group flex items-center gap-3 text-lg md:text-2xl font-mono border-b border-black/20 pb-1 hover:border-accent hover:text-accent transition-all">
+                    <i data-lucide="mail" class="w-4 h-4 md:w-5 md:h-5"></i>
+                    mail.abirahsan@gmail.com
+                </a>
+            </div>
+
+            <div
+                class="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 text-center md:text-left border-t border-black/5 pt-12">
+                <div>
+                    <h4 class="font-mono text-[10px] uppercase text-secondary mb-3">Socials</h4>
+                    <a href="https://www.linkedin.com/in/abirahsan/"
+                        class="block text-sm md:text-base font-medium hover:text-accent transition-colors mb-1">LinkedIn</a>
+                    <a href="https://github.com/dev-abirAhsan"
+                        class="block text-sm md:text-base font-medium hover:text-accent transition-colors">GitHub</a>
+                </div>
+                <div>
+                    <h4 class="font-mono text-[10px] uppercase text-secondary mb-3">Location</h4>
+                    <p class="text-sm md:text-base font-medium">Dhaka, Bangladesh</p>
+                    <p class="text-sm md:text-base font-medium text-secondary">Remote (Global)</p>
+                </div>
+                <div>
+                    <h4 class="font-mono text-[10px] uppercase text-secondary mb-3">Stack</h4>
+                    <p class="text-sm md:text-base font-medium">Java / Spring Boot</p>
+                    <p class="text-sm md:text-base font-medium">React / Node.js</p>
+                </div>
+                <div class="col-span-2 md:col-span-1 flex items-end justify-center md:justify-end mt-4 md:mt-0">
+                    <button
+                        class="w-10 h-10 md:w-12 md:h-12 border border-black/10 bg-white rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors"
+                        onclick="lenis.scrollTo(0)">
+                        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-primary py-6 text-center">
+        <p class="font-mono text-[10px] text-white/40 uppercase tracking-widest">© 2025 Md. Abir Ahsan. Designed with
+            code.</p>
+    </footer>
+    <script> // Initialize Icons
+
+        lucide.createIcons({
+            attrs: {
+                'stroke-width': 1.5
+            }
+        });
+
+        // Initialize Lenis Scrolling
+        const lenis = new Lenis({
+            duration: 0.7, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical', smoothWheel: true, touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Loader Sequence
+        const loaderTimeline = gsap.timeline();
+
+        loaderTimeline.to("#loader-progress", {
+
+            width: "100%", duration: 1.2, ease: "power2.inOut",
+            onUpdate: function () {
+                document.getElementById("loader-text").innerText = Math.round(this.progress() * 100) + "%";
+            }
+
+        }).to("#loader", {
+            yPercent: -100, duration: 0.6, ease: "power4.inOut", delay: 0.1
+        }) // Wispr-Style Hero Reveal (Blur -> Focus)
+
+            .to(".hero-glow", {
+                opacity: 1, duration: 1.5, ease: "power2.out"
+            }
+
+                , "-=0.5").to(".hero-char", {
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                    duration: 1.2,
+                    stagger: 0.1, // Stagger for flow effect
+                    ease: "power3.out"
+                }
+
+                    , "-=1.0").to(".hero-fade-in", {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        stagger: 0.1,
+                        ease: "power2.out"
+                    }
+
+                        , "-=0.8");
+
+        // Scroll Reveals for other sections
+        document.querySelectorAll("section:not(:first-child)").forEach(section => {
+            gsap.from(section.querySelectorAll("h2, h3, p, .project-card, li"), {
+                scrollTrigger: {
+                    trigger: section, start: "top 85%", toggleActions: "play none none reverse"
+                }
+
+                ,
+                y: 30, opacity: 0, duration: 0.6, stagger: 0.05, ease: "power2.out"
+            });
+        });
+
+        // Cursor Logic (Desktop)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorCircle = document.querySelector('.cursor-circle');
+            let mouseX = 0,
+                mouseY = 0,
+                cursorX = 0,
+                cursorY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY; gsap.to(cursorDot, {
+                    x: mouseX, y: mouseY, duration: 0
+                });
+            });
+
+            gsap.ticker.add(() => {
+                cursorX += (mouseX - cursorX) * 0.2; cursorY += (mouseY - cursorY) * 0.2;
+                cursorCircle.style.left = cursorX + 'px'; cursorCircle.style.top = cursorY + 'px';
+            });
+
+            document.querySelectorAll('a, button, .magnetic-btn').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+            });
+        }
+
+        // Magnetic Buttons
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+
+                gsap.to(btn, {
+                    x: (e.clientX - rect.left - rect.width / 2) * 0.2, y: (e.clientY - rect.top - rect.height / 2) * 0.2, duration: 0.2
+                });
+            });
+
+            btn.addEventListener('mouseleave', () => gsap.to(btn, {
+                x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)"
+            }));
+        });
+
+        // Canvas
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width,
+            height,
+            particles = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.size = Math.random() * 1.5;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+
+            draw() {
+                ctx.fillStyle = '#cccccc';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+            ctx.lineWidth = 1;
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i; j < particles.length; j++) {
+                    const d = Math.sqrt((particles[i].x - particles[j].x) ** 2 + (particles[i].y - particles[j].y) ** 2);
+
+                    if (d < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+
+                particles[i].update();
+                particles[i].draw();
+            }
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        animateCanvas();
+
+        // AI Terminal
+        const aiInput = document.getElementById('ai-input');
+        const termOut = document.getElementById('terminal-output');
+
+        async function handleCommand(cmd) {
+            termOut.innerHTML += `<div><span class="text-blue-400">➜</span><span class="text-gray-300">$ {
+                cmd
+            }
+
+            </span></div>`;
+            const loadId = 'l-' + Date.now();
+            termOut.innerHTML += `<div id="${loadId}" class="text-gray-500 italic text-xs">Processing...</div>`;
+            termOut.scrollTop = termOut.scrollHeight;
+            await new Promise(r => setTimeout(r, 600));
+            document.getElementById(loadId).remove();
+            let resp = "I can provide info on Skills, Experience, or specific Tech.";
+            const lCmd = cmd.toLowerCase();
+            if (lCmd.includes('java') || lCmd.includes('react') || lCmd.includes('stack')) resp = "Proficient in Java Spring Boot, React, PHP Laravel, and System Integration.";
+            else if (lCmd.includes('experience') || lCmd.includes('work')) resp = "Software Engineer at Dutch Bangla Bank PLC. Previously Full Stack Developer at Preneur Lab Limited.";
+            else if (lCmd.includes('contact')) resp = "Contact: mail.abirahsan@gmail.com";
+
+            termOut.innerHTML += `<div class="text-gray-200 border-l-2 border-accent pl-3 py-1">$ {
+                resp
+            }
+
+            </div>`;
+            termOut.scrollTop = termOut.scrollHeight;
+        }
+
+        aiInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && aiInput.value.trim()) {
+                handleCommand(aiInput.value); aiInput.value = '';
+            }
+        });
+        document.querySelectorAll('.quick-prompt').forEach(b => b.addEventListener('click', () => handleCommand(b.innerText.replace(/"/g, " "))));
+    </script>
+</body>
+
+</html>
