@@ -1,6 +1,6 @@
 # Md. Abir Ahsan - Portfolio
 
-This is the personal portfolio website of **Md. Abir Ahsan**, a Software Engineer specializing in React, Java Spring Boot, and System Integration.
+This is the personal portfolio website of **Md. Abir Ahsan**, a Software Engineer specializing in Java, Java Spring Boot, Oracle PL/SQL and System Integration.
 
 ## Project Structure
 
